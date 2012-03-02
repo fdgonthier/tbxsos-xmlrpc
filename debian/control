@@ -1,0 +1,15 @@
+Source: tbxsos-xmlrpc
+Section: teambox-internal
+Priority: optional
+Maintainer: Teambox Packages
+Build-Depends: debhelper (>= 5)
+Standards-Version: 3.7.2
+
+Package: tbxsos-xmlrpc
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, kpython (>= 1.1), kctllib (>= 1.3.2) | kctllib-nodb (>= 1.3.2), python, kweb
+Provides: tbxsosd-kps-xmlrpc
+Conflicts: tbxsosd-kps-xmlrpc
+Replaces: tbxsosd-kps-xmlrpc
+Description: XML/RPC API for TBXSOS
+ XML/RPC API.

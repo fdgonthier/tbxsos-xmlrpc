@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+    configure)
+        # Copy stock configuration file, if no file is present.
+        if [ ! -f /etc/teambox/tbxsos-xmlrpc/tbxsos-xmlrpc.ini ]; then
+            cp -a /usr/share/tbxsos-xmlrpc/config-stock/kpsapi.ini.stock /etc/teambox/tbxsos-xmlrpc/tbxsos-xmlrpc.ini
+        fi
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+#DEBHELPER#
+
+exit 0
+
+

@@ -1,0 +1,2 @@
+www/tbxsos-xmlrpc.py usr/share/tbxsos-xmlrpc/
+debian/tbxsos-xmlrpc.site.conf etc/teambox/tbxsos-config/

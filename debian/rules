@@ -1,0 +1,51 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+export DH_VERBOSE=1
+
+clean:
+	dh_testdir
+	dh_testroot
+	dh_clean
+
+install: dir=$(CURDIR)/debian/tbxsos-xmlrpc
+install: build
+	dh_testdir
+	dh_testroot
+	dh_clean -k 
+	
+	mkdir -p debian/tbxsos-xmlrpc/etc/teambox/base-config/
+	cp db/tbxsos_xmlrpc_db.sqlpy debian/tbxsos-xmlrpc/etc/teambox/base-config/
+	mkdir -p debian/tbxsos-xmlrpc/etc/logrotate.d
+	install -m644 debian/tbxsos-xmlrpc.logrotate \
+		debian/tbxsos-xmlrpc/etc/logrotate.d/tbxsos-xmlrpc
+	mkdir -p debian/tbxsos-xmlrpc/usr/share/tbxsos-xmlrpc/config-stock/
+	cp -f config-stock/kpsapi.ini.stock debian/tbxsos-xmlrpc/usr/share/tbxsos-xmlrpc/config-stock/
+
+# Build architecture-independent files here.
+binary-indep: build install
+	dh_testdir 
+	dh_testroot 
+	dh_installdirs -ptbxsos-xmlrpc
+	dh_install -ptbxsos-xmlrpc
+	dh_link -ptbxsos-xmlrpc
+	dh_strip -ptbxsos-xmlrpc
+	dh_compress -ptbxsos-xmlrpc
+	dh_fixperms -ptbxsos-xmlrpc
+	dh_installdeb -ptbxsos-xmlrpc
+	dh_shlibdeps -ptbxsos-xmlrpc
+	dh_gencontrol -ptbxsos-xmlrpc
+	dh_md5sums -ptbxsos-xmlrpc
+	dh_builddeb -ptbxsos-xmlrpc
+
+# Build architecture-dependent files here.
+binary-arch: 
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install configure
